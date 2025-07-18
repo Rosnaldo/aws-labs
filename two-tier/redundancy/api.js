@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 80;
+const port = 3000;
 
 // Parse JSON request bodies
 app.use(express.json());
@@ -17,5 +17,5 @@ app.post("/add", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at localhost:${port}`);
 });
