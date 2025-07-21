@@ -1,3 +1,10 @@
+# Condiderations
+
+• use replicatioin of each resource on different AZs for high availability.  
+• for intra-region redundancy, one properly configured ALB or NLB is enough.  
+• separate EC2 and RDS instances into different private subnets within your VPC improves security, network isolation, and access control.  
+
+
 # confg ec2 user data
 
 sudo yum update

@@ -1,3 +1,7 @@
+# Considerations
+
+• frontend has access to backend via bastion host ssh.  
+
 ### First create public ec2 frontend
 
 - create a VPC
@@ -26,12 +30,7 @@
       - type: HTTP; port: 80
       - type: HTTPS; port: 443
       - type: SSH; port: 22
-  - user data:
-    ```bash
-      sudo yum update -y
-      sudo yum install -y nginx
-      sudo yum service nginx start
-    ```
+  - user data: /web-server-user-data.sh
 
 #### test connection ####
 ```bash
@@ -54,7 +53,7 @@ ssh -i <key> ec2-user@<ec2_public_ip>
   - asssociate private subnet
 
 - create new role
-  - name: DemoRoleEC2-S3RedOnly
+  - name: DemoRoleEC2-DBReadOnly
   - policy: AmazonDynamoDBReadOnlyAccess
 
 - create EC2 instance
@@ -63,7 +62,7 @@ ssh -i <key> ec2-user@<ec2_public_ip>
   - attach secute group:
     - inbound rules:
       - type: SSH; port: 22
-  - attach role DemoRoleEC2-S3RedOnly
+  - attach role DemoRoleEC2-DBReadOnly
 
 - create service endpoint
   - attach private route table
