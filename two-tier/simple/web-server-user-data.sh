@@ -1,4 +1,8 @@
 #!/bin/bash
+
+exec > /var/log/user-data.log 2>&1
+echo "Starting user data script..."
+
 sudo yum update -y
 sudo yum install -y httpd
 
@@ -9,6 +13,8 @@ sudo yum install git -y
 
 git clone https://github.com/Rosnaldo/aws-labs.git /home/ec2-user/aws-labs
 
-cp ~/aws-labs/two-tier/simple/index.html /var/www/html/index.html
+sudo cp /home/ec2-user/aws-labs/two-tier/simple/index.html /var/www/html/index.html
 
 sudo systemctl restart httpd
+
+echo "Complete script."
