@@ -1,5 +1,8 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
+app.use(cors());
+
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { ScanCommand, DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
 

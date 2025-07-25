@@ -66,15 +66,17 @@ ssh -i <key> ec2-user@<ec2_public_ip>
 create A host on noip with ipv4 <public_ec2_public_ip>
 
 ```bash
-brew install letsencrypt
+sudo yum install letsencrypt -y
 
 # generate path to public and private key
-sudo certbot certonly --standalone
+# use a valid email
+# noip host A with public ec2 ipv4
+sudo certbot certonly --standalone -d test-ec2.ddns.net --email andreytsuzuki@gmail.com --agree-tos
 ```
 
 instal nginx and config ssl:
 ```bash
-sudo yum install nginx
+sudo yum install nginx -y
 
 # config nginx.conf
 sudo nano /etc/nginx/nginx.conf
@@ -83,7 +85,8 @@ sudo systemctl restart nginx
 ```
 
 #### test public ec2 https request ####
-on browser `https://<public_ec2_public_ip>`
+on public ec2 `curl https://test-ec2.ddns.net`  
+on browser `https://<public_ec2_public_ip>`  
 ####
 
 <br />
