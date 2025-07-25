@@ -2,7 +2,13 @@
 
 • frontend has access to backend via bastion host ssh.  
 
-### First create public ec2 frontend
+[1 - Config Private Network](1-private-network)  
+[2 - First create public ec2 frontend](2-first-create-public-ec2-frontend)  
+[3 - Config public ec2 Ssl](3-config-punlic-ec2-ssl)  
+
+<br />
+
+## 1 - Config Private Network
 
 - create a VPC
   - CIDR 10.0.0.0/16
@@ -20,6 +26,19 @@
   - asssociate public subnet
   - routes:
     - destination: 0.0.0.0/0; target: <internet_gateway>
+
+- create a NAT Gateway
+  - attach public subnet
+
+- create a private route table
+  - attach VPC
+  - asssociate private subnet
+  - routes:
+    - destination: 0.0.0.0/0; target: <nat_gateway>
+
+<br />
+
+## 2 - First create public ec2 frontend
 
 - create EC2 instance
   - name: frontend 
@@ -41,16 +60,35 @@ ssh -i <key> ec2-user@<ec2_public_ip>
 ```
 ####
 
+<br />
+
+## 2 - Config public ec2 Ssl
+create A host on noip with ipv4 <public_ec2_public_ip>
+
+```bash
+brew install letsencrypt
+
+# generate path to public and private key
+sudo certbot certonly --standalone
+```
+
+instal nginx and config ssl:
+```bash
+sudo yum install nginx
+
+# config nginx.conf
+sudo nano /etc/nginx/nginx.conf
+
+sudo systemctl restart nginx
+```
+
+#### test public ec2 https request ####
+on browser `https://<public_ec2_public_ip>`
+####
+
+<br />
 
 ## create private ec2 app
-
-- create private subnet
-  - attach VPC
-  - CIDR 10.0.1.0/24
-  
-- create a private route table
-  - attach VPC
-  - asssociate private subnet
 
 - create new role
   - name: DemoRoleEC2-DBReadOnly
