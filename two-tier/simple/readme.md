@@ -1,7 +1,20 @@
-# Considerations
+# Two tier VPC
 
-• frontend has access to backend via bastion host ssh.  
+<img src="image.png" width="50%" />
 
+## Considerations
+• Backend can only be ssh accessed via bastion host.  
+• Backend allows frontend http requests on port 80.  
+• Frontend and bastion host inside a public subnet and backend inside a private subnet.  
+• Nginx redirects frontend requests to Api in a isolated URL.  
+• Nginx allow https access to frontend on port 443.  
+• IG allows public subnet to access internet.  
+• NAT Gateway allows private subnet to access internet.  
+• Api access DynamoDB via VPC endpoint.  
+
+<br />
+
+## Setup
 [1 - Config private network](1-private-network)  
 [2 - First create public ec2 frontend](2-first-create-public-ec2-frontend)  
 [3 - Config public ec2 SSL](3-config-public-ec2-ssl)  
