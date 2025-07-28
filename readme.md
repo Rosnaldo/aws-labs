@@ -1,4 +1,6 @@
-# aws-labs
+# AWS Labs
+
+<br />
 
 ## Lambda message broadcast
 <img src="lambda-send-sms-and-email/architecture.png" width="50%">
