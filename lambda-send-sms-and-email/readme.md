@@ -1,9 +1,9 @@
 ## lambda send sms and email
 
-The API Gateway exposes a POST endpoint for receiving notification requests to lambda function that invokes a SNS.  
+The API Gateway exposes a POST endpoint to receive notification requests from lambda function that invokes a SNS.  
 The SNS sends the message to 2 topics. (sms and email)  
 
-<img src="architecture.png" width="100">
+<img src="architecture.png" width="50%">
 
 - create sns
   - attach topic protocol EMAIL
