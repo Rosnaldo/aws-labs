@@ -9,7 +9,7 @@ async function generatePdf(htmlFile, filePath, title) {
   await page.goto(`file://${htmlFile}`, { waitUntil: 'networkidle0' })
   // Generate PDF
   await page.pdf({
-    path: page,
+    path: pdfFile,
     format: 'A4',
     printBackground: true, // keeps background colors/images
     margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' }

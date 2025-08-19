@@ -36,7 +36,7 @@ async function pollMessages() {
         const title = attributes.Title.StringValue
         const decoded = Buffer.from(encoded, 'base64').toString('utf-8')
         const htmlFile = storeHtmlFileLocally(filePath, title, decoded)
-        const pdfFile = generatePdf(htmlFile, filePath, title)
+        const pdfFile = await generatePdf(htmlFile, filePath, title)
         uploadFile(pdfFile, title)
 
         // Delete message after successful processing

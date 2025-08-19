@@ -8,7 +8,7 @@ const bucketName = '211-west-pdfs'
 
 async function uploadFile(pdfFile, title) {
   try {
-    const fileStream = fs.createReadStream(pdfFile, title)
+    const fileStream = fs.createReadStream(pdfFile)
 
     await client.send(new PutObjectCommand({
       Bucket: bucketName,
