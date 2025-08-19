@@ -1,9 +1,7 @@
 services:
   app:
     build: .
-    ports:
-      - "3000:3000"
     volumes:
       -  /app/node_modules
-      - ./app:/app
+      - .:/app
       - ./data:/app/data
