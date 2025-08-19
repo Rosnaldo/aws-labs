@@ -4,8 +4,8 @@ const { execSync } = require('child_process')
 
 function storeFileLocally (file, name) {
   const pathFile = join('/var/lib', name)
-  console.log(execSync('whoami'))
-  console.log(execSync('ls -l /var/lib'))
+  console.log(execSync('whoami').toString())
+  console.log(execSync('ls -l /var/lib').toString())
   writeFileSync(pathFile, file)
   return pathFile
 }
