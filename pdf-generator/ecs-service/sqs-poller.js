@@ -13,6 +13,8 @@ const queueUrl = 'https://sqs.sa-east-1.amazonaws.com/253490794521/pdf-page-queu
 async function pollMessages() {
   try {
     const data = await client.send(new ReceiveMessageCommand({
+      MessageAttributeNames: ['All'], // request custom attributes
+      AttributeNames: ['All'], // request system attributes
       QueueUrl: queueUrl,
       MaxNumberOfMessages: 10, // up to 10 messages at once
       WaitTimeSeconds: 20,     // long polling
