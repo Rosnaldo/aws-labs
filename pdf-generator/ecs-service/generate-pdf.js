@@ -2,7 +2,9 @@ const puppeteer = require('puppeteer')
 const { join } = require('path')
 
 async function generatePdf(htmlFile, filePath, title) {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox']
+  })
   const page = await browser.newPage()
   const pdfFile = join(filePath, title + '.pdf')
   // Load a local HTML file
