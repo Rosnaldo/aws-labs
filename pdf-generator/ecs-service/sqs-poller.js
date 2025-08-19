@@ -2,6 +2,7 @@ const { SQSClient, ReceiveMessageCommand, DeleteMessageCommand } = require('@aws
 const { storeHtmlFileLocally } = require('./store-html-file-locally')
 const { generatePdf } = require('./generate-pdf')
 const { uploadFile } = require('./uploadFile')
+const { join } = require('path')
 
 // AWS SQS client
 const client = new SQSClient({ region: 'sa-east-1' })
@@ -31,6 +32,7 @@ async function pollMessages() {
         const attributes = message.MessageAttributes
         console.log('Message', attributes)
 
+        const filePath = join('/app/data')
         const encoded = attributes.HtmlContent.StringValue
         const title = attributes.Title.StringValue
         const decoded = Buffer.from(encoded, 'base64').toString('utf-8')
