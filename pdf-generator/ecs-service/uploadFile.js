@@ -6,7 +6,7 @@ const client = new S3Client({ region: 'sa-east-1' })
 // S3 bucket and key
 const bucketName = '211-west-pdfs'
 
-async function uploadFile(pdfFile) {
+async function uploadFile(pdfFile, title) {
   try {
     const fileStream = fs.createReadStream(pdfFile, title)
 

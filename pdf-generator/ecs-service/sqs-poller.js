@@ -1,5 +1,5 @@
 const { SQSClient, ReceiveMessageCommand, DeleteMessageCommand } = require('@aws-sdk/client-sqs')
-const { storeFileLocally } = require('./store-file-locally')
+const { storeHtmlFileLocally } = require('./store-html-file-locally')
 const { generatePdf } = require('./generate-pdf')
 const { uploadFile } = require('./uploadFile')
 
@@ -34,9 +34,9 @@ async function pollMessages() {
         const encoded = attributes.HtmlContent.StringValue
         const title = attributes.Title.StringValue
         const decoded = Buffer.from(encoded, 'base64').toString('utf-8')
-        const pathFile = storeFileLocally(decoded, title)
-        const pdfFile = generatePdf(pathFile)
-        uploadFile(pdfFile)
+        const htmlFile = storeHtmlFileLocally(filePath, title, decoded)
+        const pdfFile = generatePdf(htmlFile, filePath, title)
+        uploadFile(pdfFile, title)
 
         // Delete message after successful processing
         await client.send(new DeleteMessageCommand({
