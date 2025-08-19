@@ -4,5 +4,6 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./app:/usr/src/app
-      - ./data:/usr/src/app/data
+      -  /app/node_modules
+      - ./app:/app
+      - ./data:/app/data
