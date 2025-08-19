@@ -28,10 +28,10 @@ async function pollMessages() {
 
     for (const message of data.Messages) {
       try {
-        console.log('Received message:', message.Body)
+        console.log('Received message:', message.Attributes)
 
-        const encoded = message.Body.HtmlContent
-        const title = message.Body.Title
+        const encoded = message.Attributes.HtmlContent
+        const title = message.Attributes.Title
         const decoded = Buffer.from(encoded, 'base64').toString('utf-8')
         const pathFile = storeFileLocally(decoded, title)
         const pdfFile = generatePdf(pathFile)
