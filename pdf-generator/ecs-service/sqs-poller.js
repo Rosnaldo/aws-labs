@@ -21,8 +21,6 @@ async function pollMessages() {
       VisibilityTimeout: 30    // time for processing messages
     }))
 
-    console.log('data.Messages', data, data.Messages)
-
     if (!data.Messages || data.Messages.length === 0) {
       // No messages, immediately poll again
       return
@@ -31,11 +29,12 @@ async function pollMessages() {
     for (const message of data.Messages) {
       try {
         const attributes = message.MessageAttributes
-        console.log('Received message:', JSON.stringify(attributes))
 
         const encoded = attributes.HtmlContent.StringValue
         const title = attributes.Title.StringValue
+        console.log('title', title)
         const decoded = Buffer.from(encoded, 'base64').toString('utf-8')
+        console.log('decoded', decoded)
         const pathFile = storeFileLocally(decoded, title)
         const pdfFile = generatePdf(pathFile)
         uploadFile(pdfFile)
