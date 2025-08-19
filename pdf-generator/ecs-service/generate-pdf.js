@@ -12,7 +12,7 @@ async function generatePdf(htmlFile, filePath, title) {
     path: pdfFile,
     format: 'A4',
     printBackground: true, // keeps background colors/images
-    margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' }
+    margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
   })
 
   await browser.close()

@@ -9,11 +9,12 @@ const contentHtml = join(filePath, 'index.html')
 
 const title = '211-West'
 const decoded = fs.readFileSync(contentHtml).toString()
+const pageN = 1
 
 ;(async() => {
   const htmlFile = storeHtmlFileLocally(filePath, title, decoded)
   const pdfFile = await generatePdf(htmlFile, filePath, title)
-  uploadFile(pdfFile, title)
+  uploadFile(pdfFile, title, pageN)
   
   console.log(htmlFile)
   console.log(pdfFile)

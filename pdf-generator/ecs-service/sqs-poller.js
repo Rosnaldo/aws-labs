@@ -34,10 +34,11 @@ async function pollMessages() {
         const filePath = join('/app/data')
         const encoded = attributes.HtmlContent.StringValue
         const title = attributes.Title.StringValue
+        const pageN = attributes.Page.NumberValue
         const decoded = Buffer.from(encoded, 'base64').toString('utf-8')
         const htmlFile = storeHtmlFileLocally(filePath, title, decoded)
         const pdfFile = await generatePdf(htmlFile, filePath, title)
-        uploadFile(pdfFile, title)
+        uploadFile(pdfFile, title, pageN)
 
         // Delete message after successful processing
         await client.send(new DeleteMessageCommand({

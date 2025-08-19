@@ -24,6 +24,10 @@ async function sendEvent() {
         DataType: 'String',
         StringValue: '211-West',
       },
+      Page: {
+        DataType: 'Number',
+        NumericValue: 1
+      }
     },
   }
 
