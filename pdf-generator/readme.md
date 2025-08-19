@@ -1,4 +1,4 @@
-# authenticate docker to aws account
+#### authenticate docker to aws account
 
 aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin [account_id].dkr.ecr.sa-east-1.amazonaws.com
 
@@ -9,6 +9,9 @@ docker tag [image_name]:latest [account_id].dkr.ecr.sa-east-1.amazonaws.com/[ima
 
 docker push [account_id].dkr.ecr.sa-east-1.amazonaws.com/[image_name]:latest
 
-
-# development environment
+#### development environment
 docker cp ~/.aws [container]:/root/.aws
+
+#### on amazon ec2 linux terminal
+sudo mkdir -p /app/data
+sudo chown ec2-user:ec2-user /app/data

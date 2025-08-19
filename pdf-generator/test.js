@@ -13,7 +13,7 @@ const decoded = fs.readFileSync(contentHtml).toString()
 const pageN = '1'
 
 ;(async() => {
-  validateInput(encoded, title, pageN)
+  validateInput('encoded', title, pageN)
   const htmlFile = storeHtmlFileLocally(filePath, title, decoded)
   const pdfFile = await generatePdf(htmlFile, filePath, title)
   uploadFile(pdfFile, title, pageN)
