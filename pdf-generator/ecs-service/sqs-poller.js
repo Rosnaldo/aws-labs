@@ -30,7 +30,7 @@ async function pollMessages() {
 
     for (const message of data.Messages) {
       try {
-        const attributes = message.MessageAttribute
+        const attributes = message.MessageAttributes
         console.log('Received message:', JSON.stringify(attributes))
 
         const encoded = attributes.HtmlContent
