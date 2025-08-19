@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Élan Estates • Luxury Property Menu</title>
+  <!--
+    Print‑optimized, single‑page brochure/menu style.
+    • Fixed A4 page (change to Letter in @page if needed)
+    • No interactivity/JS. Purely visual.
+    • Designed to fit one page when converted to PDF.
+  -->
+  <style>
+    /* ------- PAGE SETUP ------- */
+    @page { size: A4; margin: 0; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: #0e1217; color: #edf0f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+
+    /* Canvas locked to A4 for perfect one-page export */
+    .sheet {
+      width: 210mm; height: 297mm; margin: 0 auto; position: relative;
+      background:
+        radial-gradient(80% 60% at 90% -10%, rgba(233,202,135,.12), transparent 60%),
+        linear-gradient(180deg,#0f1319 0%, #0b0f15 100%);
+      padding: 14mm; box-sizing: border-box;
+    }
+
+    /* Decorative frame */
+    .sheet::before { content: ""; position: absolute; inset: 8mm; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.09); pointer-events: none; }
+
+    /* ------- HEADER ------- */
+    .header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; column-gap: 10mm; }
+    .logo { width: 18mm; height: 18mm; border-radius: 6mm; box-shadow: 0 6px 20px rgba(233,202,135,.25);
+      background: linear-gradient(135deg, #d5b574, #e9ca87); }
+    .brand { line-height: 1.05; }
+    .brand h1 { margin: 0; font-weight: 700; font-size: 9mm; letter-spacing: .2mm; font-family: "Playfair Display", Georgia, "Times New Roman", serif; }
+    .brand p { margin: 1mm 0 0; color: #b9c3d2; font-size: 3.2mm; }
+    .badge { padding: 3mm 4mm; border-radius: 999px; font-weight: 700; font-size: 3mm; color: #0b0f15;
+      background: linear-gradient(180deg,#d5b574,#e9ca87); border: none; }
+
+    /* ------- FEATURE STRIP ------- */
+    .strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5mm; margin: 8mm 0 6mm; }
+    .strip .tile { position: relative; border-radius: 10px; overflow: hidden; height: 30mm; border: 1px solid rgba(255,255,255,.08); }
+    .strip .tile img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(105%); }
+    .strip .label { position: absolute; left: 3mm; bottom: 3mm; font-weight: 700; font-size: 3.4mm; padding: 2mm 3mm;
+      color: #0b0f15; background: linear-gradient(180deg,#d5b574,#e9ca87); border-radius: 999px; }
+
+    /* ------- GRID LIST ------- */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+    .card { border: 1px solid rgba(255,255,255,.09); border-radius: 10px; overflow: hidden; background: linear-gradient(180deg,#121722,#0c1017); }
+    .thumb { height: 32mm; overflow: hidden; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card .body { padding: 3.2mm; }
+    .title { font-weight: 700; font-size: 3.6mm; margin: 0 0 1mm; letter-spacing: .1mm; }
+    .meta { display: flex; flex-wrap: wrap; gap: 2.6mm; font-size: 3mm; color: #c7cfdb; }
+    .pill { border: 1px solid rgba(255,255,255,.09); padding: 1.6mm 2.4mm; border-radius: 999px; }
+    .price { margin-top: 2mm; font-weight: 800; font-size: 3.6mm; letter-spacing: .1mm; background: linear-gradient(180deg,#e9ca87,#d5b574);
+      -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .addr { margin-top: .6mm; color: #9eabbf; font-size: 2.8mm; }
+
+    /* ------- FOOTER ------- */
+    .footer { display: grid; grid-template-columns: 1fr auto; gap: 6mm; align-items: end; margin-top: 6mm; color: #9fb0c8; font-size: 3mm; }
+    .legend { display: flex; gap: 4mm; flex-wrap: wrap; }
+    .legend span { display: inline-flex; align-items: center; gap: 1.6mm; }
+    .dot { width: 3mm; height: 3mm; border-radius: 999px; background: linear-gradient(180deg,#d5b574,#e9ca87); display: inline-block; }
+
+    /* Keep everything on one page */
+    .sheet, .card, .tile, .thumb { page-break-inside: avoid; }
+
+    /* Load Playfair if viewer has internet; graceful fallback otherwise */
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 700; font-display: swap; src: local('Playfair Display'); }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <!-- HEADER -->
+    <section class="header">
+      <div class="logo" aria-hidden="true"></div>
+      <div class="brand">
+        <h1>Élan Estates</h1>
+        <p>Signature Collection · Curated Luxury Real Estate</p>
+      </div>
+      <div class="badge">Fall Edition</div>
+    </section>
+
+    <!-- FEATURE STRIP (hero visuals only) -->
+    <section class="strip">
+      <figure class="tile"><img src="https://images.unsplash.com/photo-1505692794403-34d4982c99cc?q=80&w=1600&auto=format&fit=crop" alt="Beachfront villa at dusk"><figcaption class="label">Beachfront</figcaption></figure>
+      <figure class="tile"><img src="https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop" alt="City skyline penthouse terrace"><figcaption class="label">Penthouse</figcaption></figure>
+      <figure class="tile"><img src="https://images.unsplash.com/photo-1615800002234-05c35ae846e0?q=80&w=1600&auto=format&fit=crop" alt="Golf course estate"><figcaption class="label">Estate</figcaption></figure>
+    </section>
+
+    <!-- PROPERTY GRID (menu-like list; 6 items targeted to fit A4) -->
+    <section class="grid">
+      <!-- 1 -->
+      <article class="card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop" alt="Azure Horizon Villa"></div>
+        <div class="body">
+          <h3 class="title">Azure Horizon Villa</h3>
+          <div class="meta">
+            <span class="pill">6 bd</span>
+            <span class="pill">7 ba</span>
+            <span class="pill">9,800 sqft</span>
+            <span class="pill">Villa</span>
+          </div>
+          <div class="price">US$ 8,200,000</div>
+          <div class="addr">Praia do Forte · Bahia, Brazil</div>
+        </div>
+      </article>
+      <!-- 2 -->
+      <article class="card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1502003148287-a82ef80a6abc?q=80&w=1600&auto=format&fit=crop" alt="Lagoon Serenity Mansion"></div>
+        <div class="body">
+          <h3 class="title">Lagoon Serenity Mansion</h3>
+          <div class="meta"><span class="pill">7 bd</span><span class="pill">9 ba</span><span class="pill">14,000 sqft</span><span class="pill">Mansion</span></div>
+          <div class="price">US$ 12,000,000</div>
+          <div class="addr">Jurerê Internacional · Florianópolis, Brazil</div>
+        </div>
+      </article>
+      <!-- 3 -->
+      <article class="card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1600&auto=format&fit=crop" alt="Cascata Glass Residence"></div>
+        <div class="body">
+          <h3 class="title">Cascata Glass Residence</h3>
+          <div class="meta"><span class="pill">4 bd</span><span class="pill">5 ba</span><span class="pill">6,200 sqft</span><span class="pill">Estate</span></div>
+          <div class="price">US$ 6,100,000</div>
+          <div class="addr">Joá · Rio de Janeiro, Brazil</div>
+        </div>
+      </article>
+      <!-- 4 -->
+      <article class="card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop" alt="Skyline Crown Penthouse"></div>
+        <div class="body">
+          <h3 class="title">Skyline Crown Penthouse</h3>
+          <div class="meta"><span class="pill">4 bd</span><span class="pill">5 ba</span><span class="pill">5,200 sqft</span><span class="pill">Penthouse</span></div>
+          <div class="price">US$ 5,200,000</div>
+          <div class="addr">Itaim Bibi · São Paulo, Brazil</div>
+        </div>
+      </article>
+      <!-- 5 -->
+      <article class="card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1615800002234-05c35ae846e0?q=80&w=1600&auto=format&fit=crop" alt="Verdant Fairway Estate"></div>
+        <div class="body">
+          <h3 class="title">Verdant Fairway Estate</h3>
+          <div class="meta"><span class="pill">5 bd</span><span class="pill">6 ba</span><span class="pill">7,500 sqft</span><span class="pill">Estate</span></div>
+          <div class="price">US$ 3,900,000</div>
+          <div class="addr">Quinta da Baroneza · Bragança Paulista, Brazil</div>
+        </div>
+      </article>
+      <!-- 6 -->
+      <article class="card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1505692794403-34d4982c99cc?q=80&w=1600&auto=format&fit=crop" alt="Aurora Bay Villa"></div>
+        <div class="body">
+          <h3 class="title">Aurora Bay Villa</h3>
+          <div class="meta"><span class="pill">3 bd</span><span class="pill">4 ba</span><span class="pill">3,800 sqft</span><span class="pill">Villa</span></div>
+          <div class="price">US$ 3,300,000</div>
+          <div class="addr">Trancoso · Bahia, Brazil</div>
+        </div>
+      </article>
+    </section>
+
+    <!-- FOOTER NOTES -->
+    <section class="footer">
+      <div class="legend">
+        <span><i class="dot"></i> Prices in USD</span>
+        <span><i class="dot"></i> Private tours by appointment</span>
+        <span><i class="dot"></i> Off‑market listings available</span>
+      </div>
+      <div>© 2025 Élan Estates · contact@elan.est • +55 11 99999‑0000</div>
+    </section>
+  </main>
+</body>
+</html>

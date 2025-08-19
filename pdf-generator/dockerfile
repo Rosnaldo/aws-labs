@@ -1,0 +1,17 @@
+# Use Node 20 LTS
+FROM node:20
+
+# Create app directory
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install --production
+
+# Copy app source code
+COPY ecs-service/ .
+
+# Expose port
+EXPOSE 3000
+
+# Run app
+CMD ["node", "ecs.js"]
