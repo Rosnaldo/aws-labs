@@ -19,7 +19,7 @@ async function pollMessages() {
       VisibilityTimeout: 30    // time for processing messages
     }))
 
-    console.log('data.Messages', data.Messages)
+    console.log('data.Messages', data, data.Messages)
 
     if (!data.Messages || data.Messages.length === 0) {
       // No messages, immediately poll again
