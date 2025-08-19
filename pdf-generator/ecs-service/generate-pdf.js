@@ -4,7 +4,7 @@ const { join } = require('path')
 async function generatePdf(htmlFile, filePath, title) {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
-  const pdfFile = join(filePath, title, '.pdf')
+  const pdfFile = join(filePath, title + '.pdf')
   // Load a local HTML file
   await page.goto(`file://${htmlFile}`, { waitUntil: 'networkidle0' })
   // Generate PDF

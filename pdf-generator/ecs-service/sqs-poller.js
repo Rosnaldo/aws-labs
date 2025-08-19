@@ -21,7 +21,7 @@ async function pollMessages() {
       WaitTimeSeconds: 20,     // long polling
       VisibilityTimeout: 30    // time for processing messages
     }))
-    console.log('data.messages', data.Messages)
+
     if (!data.Messages || data.Messages.length === 0) {
       // No messages, immediately poll again
       return
@@ -30,7 +30,6 @@ async function pollMessages() {
     for (const message of data.Messages) {
       try {
         const attributes = message.MessageAttributes
-        console.log('Message', attributes)
 
         const filePath = join('/app/data')
         const encoded = attributes.HtmlContent.StringValue
