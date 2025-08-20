@@ -1,0 +1,6 @@
+services:
+  app:
+    image: pdf-controller
+    build: .
+    env_file:
+      - .env

@@ -1,6 +1,6 @@
 services:
   app:
-    image: my-pdf
+    image: pdf-generate
     build: .
     volumes:
       -  /app/node_modules

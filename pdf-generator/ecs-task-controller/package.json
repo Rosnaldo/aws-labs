@@ -1,0 +1,16 @@
+{
+  "name": "ecs-task-controller",
+  "version": "1.0.0",
+  "description": "```bash # authenticate docker to ECR aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin [account_id].dkr.ecr.sa-east-1.amazonaws.com",
+  "main": "ecs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.864.0",
+    "@aws-sdk/client-sqs": "^3.864.0",
+    "dotenv": "^17.2.1"
+  }
+}

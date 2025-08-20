@@ -1,4 +1,4 @@
-const { SQSClient, ReceiveMessageCommand, DeleteMessageCommand } = require('@aws-sdk/client-sqs')
+const { SQSClient, DeleteMessageCommand } = require('@aws-sdk/client-sqs')
 const { storeHtmlFileLocally } = require('./store-html-file-locally')
 const { generatePdf } = require('./generate-pdf')
 const { uploadFile } = require('./uploadFile')
@@ -13,20 +13,13 @@ const queueUrl = 'https://sqs.sa-east-1.amazonaws.com/253490794521/pdf-page-queu
 
 // Polling function
 async function pollMessages() {
+  const pdfTitle = '211-West'
   try {
-    const data = await client.send(
-      new ReceiveMessageCommand({
-        MessageAttributeNames: ['All'], // request custom attributes
-        AttributeNames: ['All'], // request system attributes
-        QueueUrl: queueUrl,
-        MaxNumberOfMessages: 10, // up to 10 messages at once
-        WaitTimeSeconds: 20,     // long polling
-        VisibilityTimeout: 30    // time for processing messages
-    }))
+    const data = await sqsReceiveMessage(pdfTitle, client)
 
     if (!data.Messages || data.Messages.length === 0) {
       // No messages, immediately poll again
-      console.log('No messages, immedialy poll again')
+      console.log('No messages, process exiting')
       return process.exit(0)
     }
 
@@ -64,6 +57,7 @@ async function pollMessages() {
 
 // Continuous polling loop
 async function startPolling() {
+  console.log('Initalize ecs task generate pdf...')
   await pollMessages()
   // optional small delay to prevent tight loop when queue is empty
   await new Promise(resolve => setTimeout(resolve, 1000))

@@ -26,7 +26,7 @@ async function sendEvent() {
       },
       Page: {
         DataType: 'String',
-        StringValue: '1'
+        StringValue: '3'
       }
     },
   }
