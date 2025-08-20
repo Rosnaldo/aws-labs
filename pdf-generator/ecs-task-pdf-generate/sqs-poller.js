@@ -4,18 +4,18 @@ const { generatePdf } = require('./generate-pdf')
 const { uploadFile } = require('./uploadFile')
 const { join } = require('path')
 const { validateInput } = require('./validate')
-
-// AWS SQS client
-const client = new SQSClient({ region: 'sa-east-1' })
-
-// Your SQS queue URL
-const queueUrl = 'https://sqs.sa-east-1.amazonaws.com/253490794521/pdf-page-queue'
+const { sqsReceiveMessage } = require('../ecs-task-controller/sqs-receive-message')
+const { deleteMessage } = require('./delete-message')
 
 // Polling function
 async function pollMessages() {
-  const pdfTitle = '211-West'
+  const clientSQS = new SQSClient({ region: 'sa-east-1' })
+  const pdfTitle = process.env.PDF_TITLE
+  const bucket = process.env.S3_BUCKET
+  const sqsUrl = process.env.SQS_URL
+
   try {
-    const data = await sqsReceiveMessage(pdfTitle, client)
+    const data = await sqsReceiveMessage(pdfTitle, clientSQS, sqsUrl)
 
     if (!data.Messages || data.Messages.length === 0) {
       // No messages, immediately poll again
@@ -35,14 +35,9 @@ async function pollMessages() {
         const decoded = Buffer.from(encoded, 'base64').toString('utf-8')
         const htmlFile = storeHtmlFileLocally(filePath, title, decoded)
         const pdfFile = await generatePdf(htmlFile, filePath, title)
-        uploadFile(pdfFile, title, pageN)
+        uploadFile(pdfFile, title, pageN, bucket)
 
-        // Delete message after successful processing
-        await client.send(new DeleteMessageCommand({
-          QueueUrl: queueUrl,
-          ReceiptHandle: message.ReceiptHandle
-        }))
-        console.log('Deleted message:', message.MessageId)
+        await deleteMessage(sqsUrl, message)
       } catch (err) {
         console.error('Error processing message:', err)
         process.exit(1)

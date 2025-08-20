@@ -2,18 +2,15 @@ const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3')
 const fs = require('fs')
 const { join } = require('path')
 
-const client = new S3Client({ region: 'sa-east-1' })
 
-// S3 bucket and key
-const bucketName = '211-west-pdfs'
-
-async function uploadFile(pdfFile, title, pageN) {
+async function uploadFile(pdfFile, title, pageN, bucket) {
+  const client = new S3Client({ region: 'sa-east-1' })
   try {
     const fileStream = fs.createReadStream(pdfFile)
     const s3FilePath = join(pageN, title + '.pdf')
 
     await client.send(new PutObjectCommand({
-      Bucket: bucketName,
+      Bucket: bucket,
       Key: s3FilePath,
       Body: fileStream,
       ContentType: 'image/png', // optional, set MIME type
