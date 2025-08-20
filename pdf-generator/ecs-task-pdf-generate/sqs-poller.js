@@ -1,10 +1,10 @@
-const { SQSClient, DeleteMessageCommand } = require('@aws-sdk/client-sqs')
+const { SQSClient } = require('@aws-sdk/client-sqs')
 const { storeHtmlFileLocally } = require('./store-html-file-locally')
 const { generatePdf } = require('./generate-pdf')
 const { uploadFile } = require('./uploadFile')
 const { join } = require('path')
 const { validateInput } = require('./validate')
-const { sqsReceiveMessage } = require('../ecs-task-controller/sqs-receive-message')
+const { sqsReceiveMessage } = require('./sqs-receive-message')
 const { deleteMessage } = require('./delete-message')
 
 // Polling function

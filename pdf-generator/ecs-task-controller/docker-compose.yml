@@ -1,6 +1,7 @@
 services:
   app:
     image: pdf-controller
+    container_name: pdf-controller
     build: .
     env_file:
       - .env

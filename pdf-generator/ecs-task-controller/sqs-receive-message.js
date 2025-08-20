@@ -1,7 +1,8 @@
-const { ReceiveMessageCommand } = require("@aws-sdk/client-sqs")
+const { ReceiveMessageCommand, SQSClient } = require("@aws-sdk/client-sqs")
 
-async function sqsReceiveMessage (pdfTitle, clientSQS, sqsUrl) {
+async function sqsReceiveMessage (pdfTitle, sqsUrl) {
   try {
+    const clientSQS = new SQSClient({ region: 'sa-east-1' })
     const data = await clientSQS.send(
         new ReceiveMessageCommand({
           MessageAttributeNames: ['All'], // request custom attributes

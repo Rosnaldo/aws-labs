@@ -12,7 +12,7 @@ docker push [account_id].dkr.ecr.sa-east-1.amazonaws.com/pdf-controller:latest
 ```
 
 #### dev environment
-`cp -r ~/.aws ./aws`  
+`cp -r ~/.aws ./.aws`  
 add this to dockerfile: `COPY .aws /root/.aws`  
 `docker compose build`  
 `docker run -it --rm pdf-controller`  

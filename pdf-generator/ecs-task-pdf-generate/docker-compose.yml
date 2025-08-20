@@ -1,6 +1,7 @@
 services:
   app:
     image: pdf-generate
+    container_name: pdf-generate
     build: .
     volumes:
       -  /app/node_modules

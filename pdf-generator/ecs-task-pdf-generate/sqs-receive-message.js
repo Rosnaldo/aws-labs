@@ -1,13 +1,13 @@
-// Your SQS queue URL
-const queueUrl = 'https://sqs.sa-east-1.amazonaws.com/253490794521/pdf-page-queue'
+const { ReceiveMessageCommand } = require("@aws-sdk/client-sqs")
 
-async function sqsReceiveMessage (pdfTitle, clientSQS) {
+// Your SQS queue URL
+async function sqsReceiveMessage (pdfTitle, clientSQS, sqsUrl) {
   try {
     const data = await clientSQS.send(
         new ReceiveMessageCommand({
           MessageAttributeNames: ['All'], // request custom attributes
           AttributeNames: ['All'], // request system attributes
-          QueueUrl: queueUrl,
+          QueueUrl: sqsUrl,
           MaxNumberOfMessages: 5, // up to 5 messages at once
           WaitTimeSeconds: 20,     // long polling
           VisibilityTimeout: 30,

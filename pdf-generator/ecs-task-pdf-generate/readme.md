@@ -12,8 +12,8 @@ docker push [account_id].dkr.ecr.sa-east-1.amazonaws.com/pdf-generate:latest
 ```
 
 #### dev environment
-`cp -r ~/.aws ./aws`  
-add this to dockerfile: `COPY .aws /root/.aws`  
+`cp -r ~/.aws ./.aws`  
+add this to dockerfile: `COPY .aws /root/.aws`  or `docker cp ~/.aws [container]:/root/.aws`
 `docker compose build`  
 `docker run -it --rm pdf-generate`  
 

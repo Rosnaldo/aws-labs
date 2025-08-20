@@ -11,9 +11,9 @@ async function pollMessages() {
 
     const data = await sqsReceiveMessage(pdfTitle, sqsUrl)
 
-    const noMessages = !data.Messages || data.Messages.length === 0
+    const noMessages = !data.Messages || data.Messages?.length === 0
 
-    console.log('Message count: ', data.Messages.length)
+    console.log('Message count: ', data.Messages?.length)
     if (noMessages) {
       const count = await getS3ObjectCount(bucket)
       console.log('s3 object count ', count)
