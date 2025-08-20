@@ -14,18 +14,20 @@ const queueUrl = 'https://sqs.sa-east-1.amazonaws.com/253490794521/pdf-page-queu
 // Polling function
 async function pollMessages() {
   try {
-    const data = await client.send(new ReceiveMessageCommand({
-      MessageAttributeNames: ['All'], // request custom attributes
-      AttributeNames: ['All'], // request system attributes
-      QueueUrl: queueUrl,
-      MaxNumberOfMessages: 10, // up to 10 messages at once
-      WaitTimeSeconds: 20,     // long polling
-      VisibilityTimeout: 30    // time for processing messages
+    const data = await client.send(
+      new ReceiveMessageCommand({
+        MessageAttributeNames: ['All'], // request custom attributes
+        AttributeNames: ['All'], // request system attributes
+        QueueUrl: queueUrl,
+        MaxNumberOfMessages: 10, // up to 10 messages at once
+        WaitTimeSeconds: 20,     // long polling
+        VisibilityTimeout: 30    // time for processing messages
     }))
 
     if (!data.Messages || data.Messages.length === 0) {
       // No messages, immediately poll again
-      return
+      console.log('No messages, immedialy poll again')
+      return process.exit(0)
     }
 
     for (const message of data.Messages) {
@@ -50,22 +52,22 @@ async function pollMessages() {
         console.log('Deleted message:', message.MessageId)
       } catch (err) {
         console.error('Error processing message:', err)
+        process.exit(1)
         // message stays in the queue, will become visible again
       }
     }
   } catch (err) {
     console.error('Error receiving messages:', err)
+    process.exit(1)
   }
 }
 
 // Continuous polling loop
 async function startPolling() {
-  while (true) {
-    await pollMessages()
-    // optional small delay to prevent tight loop when queue is empty
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    console.log('SQS poller service started...')
-  }
+  await pollMessages()
+  // optional small delay to prevent tight loop when queue is empty
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  console.log('SQS poller service started...')
 }
 
 

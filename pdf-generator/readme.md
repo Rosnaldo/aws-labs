@@ -3,9 +3,10 @@
 aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin [account_id].dkr.ecr.sa-east-1.amazonaws.com
 
 aws ecr create-repository --repository-name [repo_name]
-docker build -t [image_name] .
+docker compose build
 
-docker tag [image_name]:1.0.[commit_id] [account_id].dkr.ecr.sa-east-1.amazonaws.com/[image_name]:latest
+git rev-parse --short HEAD
+docker tag [image_name]:latest [account_id].dkr.ecr.sa-east-1.amazonaws.com/[image_name]:latest
 
 docker push [account_id].dkr.ecr.sa-east-1.amazonaws.com/[image_name]:latest
 
