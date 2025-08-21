@@ -4,9 +4,11 @@ const { uploadMergedPdf } = require('./upload-merge-pdf')
 
 async function main () {
   try {
-    const pdfs = await getPdfs()
+    const bucket = process.env.S3_BUCKET
+    const title = process.env.PDF_TITLE
+    const pdfs = await getPdfs(bucket, title)
     const merged = await mergePdf(pdfs)
-    await uploadMergedPdf(merged)
+    await uploadMergedPdf(merged, bucket, title)
   } catch (err) {
     console.log('Error task pdf-pdf: ', err)
   }

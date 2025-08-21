@@ -4,6 +4,7 @@ const { readFileSync, writeFileSync } = require('fs')
 const { join } = require('path')
 const { getPdfs } = require('./get-pdfs')
 const { uploadMergedPdf } = require('./upload-merge-pdf')
+const { main } = require('./main')
 
 async function testGetPdfs () {
   const bucket = process.env.S3_BUCKET
@@ -34,8 +35,13 @@ async function testUploadPdf () {
   await uploadMergedPdf(pdf, bucket, title)
 }
 
+async function  testMain() {
+  await main()
+}
+
 ;(async () => {
+  await main()
   // await testGetPdfs()
   // await testPdfMerge()
-  await testUploadPdf()
+  // await testUploadPdf()
 })()

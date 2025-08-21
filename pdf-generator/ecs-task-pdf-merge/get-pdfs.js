@@ -9,28 +9,54 @@ async function streamToBuffer(stream) {
   })
 }
 
+const extractFirstNumber = (str) => {
+  const match = str.match(/\d+(\.\d+)?/)
+  return match ? Number(match[0]) : null
+}
+const neither = (...args) => !args.some(Boolean)
+
 async function getPdfs (bucket, title) {
   const client = new S3Client({ region: 'sa-east-1' })
 
-  async function getObjectAsBuffer(bucket, key) {
-    const command = new GetObjectCommand({ Bucket: bucket, Key: key })
-    const response = await client.send(command);
-    return streamToBuffer(response.Body) // Buffer
-  }
   const command = new ListObjectsV2Command({
     Bucket: bucket,
     Prefix: title,
   })
 
+  async function getObjectAsBuffer(o) {
+    const command = new GetObjectCommand({ 
+      Bucket: bucket,
+      Key: o.key,
+      ContentType: 'application/pdf',
+    })
+    const response = await client.send(command)
+    const buffer = await streamToBuffer(response.Body)
+    return buffer
+  }
+
+  async function getListed(params) {
+    const obj = params
+          .filter(o => neither(o.Key.endsWith('/'), o.Key.includes('final'))) // filter folders and final.pdf
+          .map(o => ({
+            key: o.Key,
+            page: extractFirstNumber(o.Key.replaceAll(title, '')),
+          }))
+          .filter(o => typeof o.page === 'number')
+    return await Promise.all(
+        obj
+          .map(async (o) => ({
+            buffer: await getObjectAsBuffer(o),
+            page: o.page,
+          }))
+      )
+  }
+
   try {
-    const listed = await client.send(command)
-    const pdfBuffers = await Promise.all(
-      listed.Contents.filter(o => o.Key).map(async (obj) => {
-        const buffer = await getObjectAsBuffer(bucket, obj.Key)
-        return { key: obj.Key, buffer }
-      })
-    )
+    const result = await client.send(command)
+    const listed = await getListed(result.Contents)
+    listed.sort((a, b) => a.page > b.page ? 1 : -1)
   
+    const pdfBuffers = listed.map(p => p.buffer)
     return pdfBuffers
   } catch (err) {
     console.log('Error list pdfs: ', err)
