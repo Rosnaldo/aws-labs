@@ -1,7 +1,7 @@
 const { SQSClient } = require('@aws-sdk/client-sqs')
 const { storeHtmlFileLocally } = require('./store-html-file-locally')
 const { generatePdf } = require('./generate-pdf')
-const { uploadFile } = require('./uploadFile')
+const { uploadFile } = require('./upload-file')
 const { join } = require('path')
 const { validateInput } = require('./validate')
 const { sqsReceiveMessage } = require('./sqs-receive-message')
@@ -31,11 +31,12 @@ async function pollMessages() {
         const encoded = attributes?.HtmlContent?.StringValue
         const title = attributes?.Title?.StringValue
         const pageN = attributes?.Page?.StringValue
+        
         validateInput(encoded, title, pageN)
         const decoded = Buffer.from(encoded, 'base64').toString('utf-8')
         const htmlFile = storeHtmlFileLocally(filePath, title, decoded)
         const pdfFile = await generatePdf(htmlFile, filePath, title)
-        uploadFile(pdfFile, title, pageN, bucket)
+        await uploadFile(pdfFile, title, pageN, bucket)
 
         await deleteMessage(sqsUrl, message)
       } catch (err) {

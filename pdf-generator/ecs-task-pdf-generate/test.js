@@ -2,11 +2,11 @@ const fs = require('fs')
 const { join } = require('path')
 const { storeHtmlFileLocally } = require('./store-html-file-locally')
 const { generatePdf } = require('./generate-pdf')
-const { uploadFile } = require('./uploadFile')
+const { uploadFile } = require('./upload-file')
 const { validateInput } = require('./validate')
 
 const filePath = __dirname
-const contentHtml = join(filePath, '..', 'index.html')
+const contentHtml = join(filePath, 'index.html')
 
 const title = '211-West'
 const decoded = fs.readFileSync(contentHtml).toString()

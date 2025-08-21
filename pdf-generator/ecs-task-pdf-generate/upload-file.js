@@ -7,13 +7,13 @@ async function uploadFile(pdfFile, title, pageN, bucket) {
   const client = new S3Client({ region: 'sa-east-1' })
   try {
     const fileStream = fs.createReadStream(pdfFile)
-    const s3FilePath = join(pageN, title + '.pdf')
+    const s3FilePath = join(title,  pageN + '.pdf')
 
     await client.send(new PutObjectCommand({
       Bucket: bucket,
       Key: s3FilePath,
       Body: fileStream,
-      ContentType: 'image/png', // optional, set MIME type
+      ContentType: 'application/pdf', // optional, set MIME type
     }))
 
     console.log(`File uploaded successfully to s3://${s3Path}`)

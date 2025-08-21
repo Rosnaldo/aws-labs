@@ -1,3 +1,4 @@
+const { createEcsTaskPdfGenerate } = require('./create-ecs-task-pdf-generate')
 const { getS3ObjectCount } = require('./getS3objetcCount')
 const { sqsReceiveMessage } = require('./sqs-receive-message')
 
@@ -15,7 +16,7 @@ async function pollMessages() {
 
     console.log('Message count: ', data.Messages?.length)
     if (noMessages) {
-      const count = await getS3ObjectCount(bucket)
+      const count = await getS3ObjectCount(bucket, pdfTitle)
       console.log('s3 object count ', count)
       if (count === pdfPageCount) {
         console.log('pdf has finished')
@@ -25,6 +26,8 @@ async function pollMessages() {
       // No messages, immediately poll again
       console.log('No messages, immedialy poll again')
       return
+    } else {
+      await createEcsTaskPdfGenerate(sqsUrl, bucket, pdfTitle, pdfPageCount)
     }
   } catch (err) {
     console.error('Error:', err)
