@@ -5,6 +5,7 @@ const { join } = require('path')
 const { getPdfs } = require('./get-pdfs')
 const { uploadMergedPdf } = require('./upload-merge-pdf')
 const { main } = require('./main')
+const { paginatePdf } = require('./paginate')
 
 async function testGetPdfs () {
   const bucket = process.env.S3_BUCKET
@@ -35,12 +36,17 @@ async function testUploadPdf () {
   await uploadMergedPdf(pdf, bucket, title)
 }
 
-async function  testMain() {
-  await main()
+
+async function  testPaginate() {
+  const finalPath = join(__dirname, 'final.pdf')
+  const paginatedPath = join(__dirname, 'paginated.pdf')
+  const buffer = readFileSync(finalPath)
+  const paginated = await paginatePdf(buffer)
+  writeFileSync(paginatedPath, paginated)
 }
 
 ;(async () => {
-  await main()
+  await testPaginate()
   // await testGetPdfs()
   // await testPdfMerge()
   // await testUploadPdf()

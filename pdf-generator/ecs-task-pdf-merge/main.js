@@ -1,5 +1,6 @@
 const { getPdfs } = require('./get-pdfs')
 const { mergePdf } = require('./merge-pdf')
+const { paginatePdf } = require('./paginate')
 const { uploadMergedPdf } = require('./upload-merge-pdf')
 
 async function main () {
@@ -8,7 +9,8 @@ async function main () {
     const title = process.env.PDF_TITLE
     const pdfs = await getPdfs(bucket, title)
     const merged = await mergePdf(pdfs)
-    await uploadMergedPdf(merged, bucket, title)
+    const paginated = await paginatePdf(merged)
+    await uploadMergedPdf(paginated, bucket, title)
   } catch (err) {
     console.log('Error task pdf-pdf: ', err)
   }
