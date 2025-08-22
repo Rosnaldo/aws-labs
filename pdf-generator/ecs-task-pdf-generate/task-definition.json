@@ -18,9 +18,7 @@
         }
       ],
       "environment": [
-        { "name": "https", "value": "https://sqs.sa-east-1.amazonaws.com/[account_id]/pdf-page-queue" },
-        { "name": "S3_BUCKET", "value": "211-west-pdfs" },
-        { "name": "PDF_TITLE", "value": "211-West" }
+        { "name": "https", "value": "https://sqs.sa-east-1.amazonaws.com/[account_id]/pdf-page-queue" }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",

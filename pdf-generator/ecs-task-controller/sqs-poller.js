@@ -27,7 +27,7 @@ async function pollMessages() {
       console.log('No messages was found')
       process.exit(0)
     } else {
-      await createEcsTaskPdfGenerate(sqsUrl, bucket, pdfTitle, pdfTotalPage)
+      await createEcsTaskPdfGenerate(bucket, pdfTitle, pdfTotalPage)
     }
   } catch (err) {
     console.error('Error:', err)

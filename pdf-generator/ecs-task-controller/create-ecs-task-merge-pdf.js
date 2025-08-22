@@ -1,7 +1,7 @@
 const { ECSClient, RunTaskCommand } = require('@aws-sdk/client-ecs')
 
 
-async function createEcsTaskMergePdf (sqsUrl, bucket, pdfTitle, pageCount) {
+async function createEcsTaskMergePdf (bucket, pdfTitle, pageCount) {
   const ecs = new ECSClient({ region: 'sa-east-1' })
   const taskN = Math.ceil(pageCount / 5)
   try {
@@ -23,7 +23,6 @@ async function createEcsTaskMergePdf (sqsUrl, bucket, pdfTitle, pageCount) {
             name: 'merge-pdf',
             command: ['npm', 'run', 'start'],
             environment: [
-              { name: 'SQS_URL', value: sqsUrl },
               { name: 'S3_BUCKET', value: bucket },
               { name: 'PDF_TITLE', value: pdfTitle },
             ]
