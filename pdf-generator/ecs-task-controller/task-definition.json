@@ -1,0 +1,36 @@
+{
+  "family": "my-pdf-controller",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::[account_id]:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::[account_id]:role/ecsTaskPdfGenerator",
+  "containerDefinitions": [
+    {
+      "name": "pdf-controller",
+      "image": "[account_id].dkr.ecr.sa-east-1.amazonaws.com/pdf-controller",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "https", "value": "https://sqs.sa-east-1.amazonaws.com/[account_id]/pdf-page-queue" },
+        { "name": "S3_BUCKET", "value": "211-west-pdfs" },
+        { "name": "PDF_TITLE", "value": "211-West" },
+        { "name": "PDF_PAGE_COUNT", "value": "3" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/my-pdf-controller",
+          "awslogs-region": "sa-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}

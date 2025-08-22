@@ -1,0 +1,27 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes"
+      ],
+      "Resource": "arn:aws:sqs:sa-east-1:253490794521:pdf-page-queue"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["ecs:RunTask"],
+      "Resource": "arn:aws:ecs:sa-east-1:253490794521:task-definition/my-pdf-controller:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": [
+        "arn:aws:iam::253490794521:role/ecsTaskExecutionRole",
+        "arn:aws:iam::253490794521:role/ecsTaskPdfGenerator"
+      ]
+    }
+  ]
+}
