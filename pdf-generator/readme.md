@@ -1,12 +1,24 @@
-create SQS
-  - sqs-page-queue
+## Pdf Generator Microservice
+<img src="image.png" width="50%">
 
-create task definition my-pdf-controller
+A microservice high scalable to convert HTML into PDF.  
 
-create task definition my-pdf-generate
+• The `SQS` receives a HTML as input.  
+• `SQS` triggers `EventBridge Pipe` which then creates `ECS Controller`.  
+• `ECS controller` manages the `ECS Generate PDF` and `ECS Merge PDF`.   
+• `ECS controller` pulls `SQS` and creates `ECS Generate PDF` instances and wait them to finish the tasks.   
+• The number of `ECS Generate` instances depends on the number of PDF pages.  
+• `ECS Generate PDF` polls `SQS` messages and uses the HTML to generate PDF using puppetter browser chromium and then stores on `S3`.  
+• Once all PDF pages are created `ECS Controller` creates the `ECS Merge PDF`.    
+• `ECS Merge PDF` merges all pages into one final PDF.   
 
-create task definition my-pdf-merge
 
-create eventbridge pipe sqs-page-queue-to-ecs-pdf-controller-pipe
+<br />
 
-init pdf generation with `send-html-sqs` microservice
+#### Instructions to build infrastructure
+• create SQS sqs-page-queue  
+• create task definition my-pdf-controller  
+• create task definition my-pdf-generate  
+• create task definition my-pdf-merge  
+• create eventbridge pipe sqs-page-queue-to-ecs-pdf-controller-pipe  
+• init pdf generation with `send-html-sqs` microservice  
