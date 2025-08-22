@@ -1,12 +1,12 @@
 const { ECSClient, RunTaskCommand } = require('@aws-sdk/client-ecs')
 
 
-async function createEcsTaskPdfGenerate (sqsUrl, bucket, pdfTitle, pageCount) {
+async function createEcsTaskPdfGenerate (sqsUrl, bucket, pdfTitle, pdfTotalPage) {
   const ecs = new ECSClient({ region: 'sa-east-1' })
-  const taskN = Math.ceil(pageCount / 5)
+  const taskN = Math.ceil(pdfTotalPage / 5)
   try {
     const command = new RunTaskCommand({
-      cluster: 'unique-tiger-zxlx2u',
+      cluster: 'cuddly-hippopotamus-bocwo8',
       taskDefinition: 'pdf-generate:3',
       launchType: 'FARGATE',
       count: taskN,
@@ -37,7 +37,7 @@ async function createEcsTaskPdfGenerate (sqsUrl, bucket, pdfTitle, pageCount) {
     const taskArns = response.tasks.map(t => t.taskArn)
     await waitUntilTasksStopped(
       { client: ecs, maxWaitTime: 900 },
-      { cluster: 'unique-tiger-zxlx2u', tasks: taskArns }
+      { cluster: 'cuddly-hippopotamus-bocwo8', tasks: taskArns }
     )
   } catch (err) {
     console.error('Error running task:', err)

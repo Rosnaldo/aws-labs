@@ -6,8 +6,8 @@ async function createEcsTaskMergePdf (sqsUrl, bucket, pdfTitle, pageCount) {
   const taskN = Math.ceil(pageCount / 5)
   try {
     const command = new RunTaskCommand({
-      cluster: 'unique-tiger-zxlx2u',
-      taskDefinition: 'merge-pdf:3',
+      cluster: 'cuddly-hippopotamus-bocwo8',
+      taskDefinition: 'my-merge-pdf:3',
       launchType: 'FARGATE',
       count: taskN,
       networkConfiguration: {
@@ -37,7 +37,7 @@ async function createEcsTaskMergePdf (sqsUrl, bucket, pdfTitle, pageCount) {
     const taskArns = response.tasks.map(t => t.taskArn)
     await waitUntilTasksStopped(
       { client: ecs, maxWaitTime: 900 },
-      { cluster: 'unique-tiger-zxlx2u', tasks: taskArns }
+      { cluster: 'cuddly-hippopotamus-bocwo8', tasks: taskArns }
     )
   } catch (err) {
     console.error('Error running task:', err)

@@ -1,22 +1,22 @@
-const { ReceiveMessageCommand } = require('@aws-sdk/client-sqs')
+const { ReceiveMessageCommand, SQSClient } = require('@aws-sdk/client-sqs')
 
-// Your SQS queue URL
-async function sqsReceiveMessage (pdfTitle, clientSQS, sqsUrl) {
+async function sqsReceiveFirstMessage (pdfTitle, sqsUrl) {
   try {
+    const clientSQS = new SQSClient({ region: 'sa-east-1' })
     const data = await clientSQS.send(
         new ReceiveMessageCommand({
           MessageAttributeNames: ['All'], // request custom attributes
           AttributeNames: ['All'], // request system attributes
           QueueUrl: sqsUrl,
-          MaxNumberOfMessages: 5, // up to 5 messages at once
+          MaxNumberOfMessages: 1, // up to 10 messages at once
           WaitTimeSeconds: 20,     // long polling
           VisibilityTimeout: 30,
           MessageAttributes: {
-          messageType: {
-            DataType: 'String',
-            StringValue: pdfTitle
-          }
-        }    // time for processing messages
+            messageType: {
+              DataType: 'String',
+              StringValue: pdfTitle
+            }
+          }    // time for processing messages
       }))
     return data
   } catch (err) {
@@ -26,5 +26,5 @@ async function sqsReceiveMessage (pdfTitle, clientSQS, sqsUrl) {
 }
 
 module.exports = {
-  sqsReceiveMessage
+  sqsReceiveFirstMessage
 }

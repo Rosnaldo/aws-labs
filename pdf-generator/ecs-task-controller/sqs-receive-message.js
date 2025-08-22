@@ -1,4 +1,4 @@
-const { ReceiveMessageCommand, SQSClient } = require("@aws-sdk/client-sqs")
+const { ReceiveMessageCommand, SQSClient } = require('@aws-sdk/client-sqs')
 
 async function sqsReceiveMessage (pdfTitle, sqsUrl) {
   try {
@@ -12,11 +12,11 @@ async function sqsReceiveMessage (pdfTitle, sqsUrl) {
           WaitTimeSeconds: 20,     // long polling
           VisibilityTimeout: 30,
           MessageAttributes: {
-          messageType: {
-            DataType: "String",
-            StringValue: pdfTitle
-          }
-        }    // time for processing messages
+            messageType: {
+              DataType: 'String',
+              StringValue: pdfTitle
+            }
+          }    // time for processing messages
       }))
     return data
   } catch (err) {
