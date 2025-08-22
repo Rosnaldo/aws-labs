@@ -1,0 +1,10 @@
+# Use Node 20 LTS
+FROM node:20
+
+WORKDIR "/app"
+COPY package*.json .
+RUN npm install
+COPY . .
+
+# Run app
+CMD ["npm", "run", "start"]

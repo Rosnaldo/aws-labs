@@ -1,13 +1,13 @@
 const { ECSClient, RunTaskCommand } = require('@aws-sdk/client-ecs')
 
 
-async function createEcsTaskPdfGenerate (sqsUrl, bucket, pdfTitle, pageCount) {
+async function createEcsTaskMergePdf (sqsUrl, bucket, pdfTitle, pageCount) {
   const ecs = new ECSClient({ region: 'sa-east-1' })
   const taskN = Math.ceil(pageCount / 5)
   try {
     const command = new RunTaskCommand({
       cluster: 'unique-tiger-zxlx2u',
-      taskDefinition: 'pdf-generate:3',
+      taskDefinition: 'merge-pdf:3',
       launchType: 'FARGATE',
       count: taskN,
       networkConfiguration: {
@@ -20,7 +20,7 @@ async function createEcsTaskPdfGenerate (sqsUrl, bucket, pdfTitle, pageCount) {
       overrides: {
         containerOverrides: [
           {
-            name: 'pdf-generate',
+            name: 'merge-pdf',
             command: ['npm', 'run', 'start'],
             environment: [
               { name: 'SQS_URL', value: sqsUrl },
@@ -32,7 +32,7 @@ async function createEcsTaskPdfGenerate (sqsUrl, bucket, pdfTitle, pageCount) {
       }
     })
 
-    console.log('PdfGenerate Task started:', response.tasks?.[0]?.taskArn)
+    console.log('MergePdf Task started:', response.tasks?.[0]?.taskArn)
     const response = await ecs.send(command)
     const taskArns = response.tasks.map(t => t.taskArn)
     await waitUntilTasksStopped(
@@ -45,5 +45,5 @@ async function createEcsTaskPdfGenerate (sqsUrl, bucket, pdfTitle, pageCount) {
 }
 
 module.exports = {
-  createEcsTaskPdfGenerate
+  createEcsTaskMergePdf
 }

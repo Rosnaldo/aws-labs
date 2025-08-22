@@ -1,0 +1,15 @@
+{
+  "name": "send-html-sqs",
+  "version": "1.0.0",
+  "main": "send-to-sqs.js",
+  "author": "andrey",
+  "license": "ISC",
+  "scripts": {
+    "start": "node ecs.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.873.0",
+    "dotenv": "^17.2.1"
+  }
+}
