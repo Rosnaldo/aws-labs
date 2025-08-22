@@ -1,3 +1,5 @@
+## ECS Merge PDF
+
 #### Create and push container image to ECR  
 ```bash
 # authenticate docker to ECR
@@ -12,7 +14,7 @@ docker tag pdf-merge:latest [account_id].dkr.ecr.sa-east-1.amazonaws.com/pdf-mer
 docker push [account_id].dkr.ecr.sa-east-1.amazonaws.com/pdf-merge:latest
 ```
 
-#### Create ECS task  
+#### Create ECS task definition
 ```bash
 aws ecs register-task-definition --cli-input-json file://task-definition.json
 ```

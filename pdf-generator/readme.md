@@ -17,8 +17,8 @@ A microservice high scalable to convert HTML into PDF.
 
 #### Instructions to build infrastructure
 • create SQS sqs-page-queue  
-• create task definition my-pdf-controller  
-• create task definition my-pdf-generate  
-• create task definition my-pdf-merge  
-• create eventbridge pipe sqs-page-queue-to-ecs-pdf-controller-pipe  
+• create task definition [see my-pdf-controller.md](ecs-task-controller/readme.md)  
+• create task definition [see my-pdf-generate.md](ecs-task-pdf-generate/readme.md)  
+• create task definition [see my-pdf-merge.md](ecs-task-pdf-merge/readme.md)  
+• create eventbridge pipe [see event-bridge-pipe-sqs-ecs-controller.md](event-bridge-pipe-sqs-ecs-controller/readme.md)  
 • init pdf generation with `send-html-sqs` microservice  

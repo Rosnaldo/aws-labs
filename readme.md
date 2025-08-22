@@ -42,3 +42,5 @@ A microservice high scalable to convert HTML into PDF.
 • `ECS Generate PDF` polls `SQS` messages and uses the HTML to generate PDF using puppetter browser chromium and then stores on `S3`.  
 • Once all PDF pages are created `ECS Controller` creates the `ECS Merge PDF`.    
 • `ECS Merge PDF` merges all pages into one final PDF.   
+
+[see pdf-generator.md](pdf-generator/readme.md)
