@@ -20,8 +20,8 @@ aws ecs register-task-definition --cli-input-json file://task-definition.json
 #### dev environment
 `docker compose build`  
 `docker compose up`  
-`docker cp ~/.aws pdf-merge:/root/.aws`
-`docker run -it --rm pdf-merge`  
+`docker cp ~/.aws pdf-generate:/root/.aws`
+`docker run -it --rm pdf-generate`  
 
 #### test services
 `node test.js`

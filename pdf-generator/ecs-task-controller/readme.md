@@ -22,5 +22,5 @@ aws ecs deregister-task-definition --task-definition my-pdf-controller:1
 #### dev environment
 `docker compose build`  
 `docker compose up`  
-`docker cp ~/.aws pdf-merge:/root/.aws`
-`docker run -it --rm pdf-merge`   
+`docker cp ~/.aws pdf-controller:/root/.aws`
+`docker run -it --rm pdf-controller`   
