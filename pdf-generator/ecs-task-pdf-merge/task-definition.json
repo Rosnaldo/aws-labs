@@ -1,0 +1,34 @@
+{
+  "family": "my-pdf-merge",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::[account_id]:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::[account_id]:role/ecsTaskPdfGenerator",
+  "containerDefinitions": [
+    {
+      "name": "pdf-merge",
+      "image": "[account_id].dkr.ecr.sa-east-1.amazonaws.com/pdf-merge",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "S3_BUCKET", "value": "211-west-pdfs" },
+        { "name": "PDF_TITLE", "value": "211-West" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/my-pdf-merge",
+          "awslogs-region": "sa-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}

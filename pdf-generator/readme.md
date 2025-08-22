@@ -1,5 +1,12 @@
-delete a ecs task definition
+create SQS
+  - sqs-page-queue
 
-```bash
-aws ecs deregister-task-definition --task-definition my-task:3
-```
+create task definition my-pdf-controller
+
+create task definition my-pdf-generate
+
+create task definition my-pdf-merge
+
+create eventbridge pipe sqs-page-queue-to-ecs-pdf-controller-pipe
+
+init pdf generation with `send-html-sqs` microservice

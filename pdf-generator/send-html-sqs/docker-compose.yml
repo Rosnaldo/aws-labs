@@ -1,8 +1,0 @@
-services:
-  app:
-    image: pdf-merge
-    container_name: pdf-merge
-    build: .
-    volumes:
-      -  /app/node_modules
-      - ./data:/app/data

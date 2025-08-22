@@ -1,3 +1,4 @@
+#### Create and push container image to ECR  
 ```bash
 # authenticate docker to ECR
 aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin [account_id].dkr.ecr.sa-east-1.amazonaws.com
@@ -11,8 +12,16 @@ docker tag pdf-merge:latest [account_id].dkr.ecr.sa-east-1.amazonaws.com/pdf-mer
 docker push [account_id].dkr.ecr.sa-east-1.amazonaws.com/pdf-merge:latest
 ```
 
+#### Create ECS task  
+```bash
+aws ecs register-task-definition --cli-input-json file://task-definition.json
+```
+
 #### dev environment
 `docker compose build`  
 `docker compose up`  
 `docker cp ~/.aws pdf-merge:/root/.aws`
 `docker run -it --rm pdf-merge`  
+
+#### test services
+`node test.js`
