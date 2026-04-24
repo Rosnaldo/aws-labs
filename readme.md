@@ -16,7 +16,10 @@ The SNS sends the message to 2 topics. (sms and email)
 <br />
 
 ## Two tier VPC
-<img src="two-tier/simple/image.png" style="height: 300; @media (max-width: 768px) { width: 100%; }">
+<picture>
+  <source media="(max-width: 768px)" srcset="two-tier/simple/imagem.png" width="100%">
+  <img src="two-tier/simple/imagem.png" width="50%">
+</picture>
 
 ### Considerations
 • Backend can only be ssh accessed via bastion host.  
@@ -33,7 +36,10 @@ The SNS sends the message to 2 topics. (sms and email)
 <br />
 
 ## Pdf Generator Microservice
-<img src="pdf-generator/image.png" style="width: 50%; @media (max-width: 768px) { width: 100%; }">
+<picture>
+  <source media="(max-width: 768px)" srcset="pdf-generator/imagem.png" width="100%">
+  <img src="pdf-generator/image.png" width="50%">
+</picture>
 
 A microservice high scalable to convert HTML into PDF.  
 
