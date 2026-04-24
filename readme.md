@@ -3,7 +3,7 @@
 <br />
 
 ## Lambda message broadcast
-<img src="lambda-send-sms-and-email/architecture.png" width="50%">
+<img src="lambda-send-sms-and-email/architecture.png" style="width: 50%; @media (max-width: 768px) { width: 100%; }">
 
 The API Gateway exposes a POST endpoint to receive notification requests from lambda function that invokes a SNS.  
 The SNS sends the message to 2 topics. (sms and email)  
@@ -13,7 +13,7 @@ The SNS sends the message to 2 topics. (sms and email)
 <br />
 
 ## Two tier VPC
-<img src="two-tier/simple/image.png" height="300" />
+<img src="two-tier/simple/image.png" style="height: 300; @media (max-width: 768px) { width: 100%; }">
 
 ### Considerations
 • Backend can only be ssh accessed via bastion host.  
@@ -30,7 +30,7 @@ The SNS sends the message to 2 topics. (sms and email)
 <br />
 
 ## Pdf Generator Microservice
-<img src="pdf-generator/image.png" width="50%">
+<img src="pdf-generator/image.png" style="width: 50%; @media (max-width: 768px) { width: 100%; }">
 
 A microservice high scalable to convert HTML into PDF.  
 
