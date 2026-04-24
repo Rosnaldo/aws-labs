@@ -3,7 +3,10 @@
 <br />
 
 ## Lambda message broadcast
-<img src="lambda-send-sms-and-email/architecture.png" style="width: 50%; @media (max-width: 768px) { width: 100%; }">
+<picture>
+  <source media="(max-width: 768px)" srcset="lambda-send-sms-and-email/architecture.png" width="100%">
+  <img src="lambda-send-sms-and-email/architecture.png" width="50%">
+</picture>
 
 The API Gateway exposes a POST endpoint to receive notification requests from lambda function that invokes a SNS.  
 The SNS sends the message to 2 topics. (sms and email)  
