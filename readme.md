@@ -17,8 +17,8 @@ The SNS sends the message to 2 topics. (sms and email)
 
 ## Two tier VPC
 <picture>
-  <source media="(max-width: 768px)" srcset="two-tier/simple/imagem.png" width="100%">
-  <img src="two-tier/simple/imagem.png" width="50%">
+  <source media="(max-width: 768px)" srcset="two-tier/simple/image.png" width="100%">
+  <img src="two-tier/simple/image.png" width="50%">
 </picture>
 
 ### Considerations
